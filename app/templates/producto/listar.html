@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/boot/css/bootstrap.css') }}">
+    <script src="{{ url_for('static', filename='/boot/js/bootstrap.js') }}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleCliente.css') }}">
+    <title>Carrito</title>
+    <style>
+        body {
+            background: url("{{ url_for('static', filename='/imagenes/photos.png') }}") no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .overlay {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 975px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #494949;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid #dee2e6;
+            text-align: left;
+        }
+
+        th {
+            background-color: #212529;
+            color: #ffffff;
+        }
+
+        a {
+            display: inline-block;
+            margin-right: 10px;
+            text-decoration: none;
+            padding: 8px;
+            background-color: #343a40;
+            color: #ffffff;
+            border-radius: 5px;
+        }
+
+        a:hover {
+            background-color: #cbd6d2;
+        }
+
+
+        @media (max-width: 768px) {
+            /* Estilos para pantallas más pequeñas */
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="container">
+    <div class="invoice">
+
+    <h1 class="mt-3 mb-4">Carrito de Compras</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Producto</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item['producto'].nombreProducto }}</td>
+                    <td>{{ item['producto'].precioProductoventa }}</td>
+                    <td>{{ item['cantidad'] }}</td>
+                    <td>
+                        <form action="{{ url_for('carritos.eliminarItem', id=item['producto'].idProducto) }}" method="post">
+                            <button type="submit" class="btn btn-danger">Eliminar Producto</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <form action="{{ url_for('carritos.vaciar_carrito') }}" method="post" class="mb-3">
+        <button type="submit" class="btn btn-group">Vaciar Carrito</button>
+    </form>
+
+    <a href="{{ url_for('carritos.realizar_compra') }}">Generar Factura</a>
+    
+    <a href="{{ url_for('administrador.inicio')}}">Inicio</a>
+</div>
+</div>
+</body>
+
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Agregar Venta</title>
+</head>
+<body>
+    <h1>Agregar Venta</h1>
+    <form action="{{ url_for('venta.add') }}" method="post">
+        <label for="descripcionVenta">Descripcion:</label>
+        <input type="text" id="descripcionVenta" name="descripcionVenta" required>
+        <label for="fechaV">Fecha Venta:</label>
+        <input type="date" id="fechaV" name="fechaV" required>
+        <label for="totalV">Total Venta:</label>
+        <input type="int" id="totalV" name="totalV" required>
+        <label for="cliente"> ID Cliente</label>
+
+        <select id="idCliente" name="idCliente">
+            {% for cliente in data %}
+                <option value="{{cliente.idCliente}}">{{cliente.nombreCliente }}</option>
+            {% endfor %}
+        </select>
+        <label for="administrador"> ID Administrador:</label>
+
+        <select id="idAdministrador" name="idAdministrador">
+            {% for administrador in data3 %}
+                <option value="{{administrador.idAdministrador }}">{{ administrador.nombreAdministrador }}</option>
+            {% endfor %}
+        </select>
+
+       
+        <button type="submit">Agregar Venta</button>
+    </form>
+</body>
+</html>

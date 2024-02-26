@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title> Detalle Compra</title>
+
+    <style>
+        body {
+            background: url("{{ url_for('static', filename='/imagenes/photos.png') }}") no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .overlay {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 975px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #494949;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid #dee2e6;
+            text-align: left;
+        }
+
+        th {
+            background-color: #212529;
+            color: #ffffff;
+        }
+
+        a {
+            display: inline-block;
+            margin-right: 10px;
+            text-decoration: none;
+            padding: 8px;
+            background-color: #343a40;
+            color: #ffffff;
+            border-radius: 5px;
+        }
+
+        a:hover {
+            background-color: #cbd6d2;
+        }
+
+
+        @media (max-width: 768px) {
+            /* Estilos para pantallas más pequeñas */
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+    <h1>Lista de Detalle Compra</h1>
+    <div style="overflow-x:auto;">
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Descripcion</th>
+            <th>Cantidad</th>
+            <th>ID Producto</th>
+            <th>ID Compra</th>
+            <th>Acciones</th>
+        </tr>
+        {% for detalleCompra in data %}
+            <tr>
+                <td>{{ detalleCompra.idDetalleCompra}}</td>
+                <td>{{ detalleCompra.descripcionDC}}</td>
+                <td>{{ detalleCompra.cantidadc}}</td>
+                <td>{{ detalleCompra.idProducto }}</td>
+                <td>{{ detalleCompra.idCompra }}</td>
+                <td>
+                    <a href="{{ url_for('detalleCompra.edit', id=detalleCompra.idDetalleCompra) }}"><i class="bi bi-pencil-square"></i></a>
+                    <a href="{{ url_for('detalleCompra.delete', id=detalleCompra.idDetalleCompra) }}">Eliminar</a>                 
+                    <!-- Agrega aquí el enlace para eliminar -->
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+    <a href="{{ url_for('detalleCompra.add') }}">Agregar Detalle Compra</a>
+    <br>
+    <a href="{{ url_for('administrador.inicio')}}">Inicio</a>
+</div>
+</body>
+</html>

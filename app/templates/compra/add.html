@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Agregar Compra</title>
+    <style>
+        body {
+            background: url("{{ url_for('static', filename='/imagenes/matera1.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .overlay {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+            margin: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        input.form-control {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button.btn-primary {
+            width: 100%;
+            padding: 10px;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #a1caba;
+        }
+
+        button.btn-info {
+            width: 100%;
+            padding: 10px;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #e1ecc3;
+        }
+
+        input {
+            margin: 10px;
+            width: 276px;
+        }
+        @media (max-width: 768px) {
+            /* Estilos para pantallas más pequeñas */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="overlay">
+        <h1>Agregar Compra</h1>
+        <form action="{{ url_for('compra.add') }}" method="post">
+
+            <div class="form-group">
+                <label for="descripcionCompra">Descripcion:</label>
+                <input type="text" id="descripcionCompra" name="descripcionCompra" required>
+            </div>
+            <div class="form-group">
+                <label for="fechaFacturac">Fecha Compra:</label>
+                <input type="date" id="fechaFacturac" name="fechaFacturac" required>
+            </div>
+            <div class="form-group">
+                <label for="totalCompra">Total Compra:</label>
+                <input type="text" id="totalCompra" name="totalCompra" required>
+            </div>
+            <div class="form-group">
+                <label for="administrador"> ID Administrador:</label>
+
+                <select id="idAdministrador" name="idAdministrador">
+                    {% for administrador in data1 %}
+                    <option value="{{administrador.idAdministrador }}">{{ administrador.nombreAdministrador }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="proveedor"> ID Proveedor:</label>
+
+                <select id="idProveedor" name="idProveedor">
+                    {% for proveedor in data %}
+                    <option value="{{ proveedor.idProveedor }}">{{ proveedor.nombreProveedor }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit">Agregar compra</button>
+        </form>
+    </div>
+</body>
+
+</html>

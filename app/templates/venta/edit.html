@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Editar Venta</title>
+</head>
+<body>
+    <h1>Editar Venta</h1>
+    <form action="{{ url_for('venta.edit', id=venta.idVenta) }}" method="post">
+        <label for="descripcionVenta">Descripcion</label>
+        <input type="text" id="descripcionVenta" name="descripcionVenta" value="{{ venta.descripcionVenta}}" required>
+        <label for="fechaV">Fecha</label>
+        <input type="date" id="fechaV" name="fechaV" value="{{ venta.fechaV}}" required>
+        <label for="totalV">Total Venta</label>
+        <input type="int" id="totalV" name="totalV" value="{{ venta.totalV}}" required>
+        <label for="cliente">ID Cliente</label>
+        <input type="text" id="cliente" name="cliente" value="{{ venta.cliente}}" required>
+        <label for="adminitrador">ID Administrador</label>
+        <input type="text" id="adminitrador" name="adminitrador" value="{{ venta.adminitrador }}" required>
+        <button type="submit">Actualizar  Venta</button>
+    </form>
+</body>
+</html>

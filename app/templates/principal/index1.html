@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='/boot/css/bootstrap.css') }}">
+    <script src="{{ url_for('static', filename='/boot/js/bootstrap.js') }}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleCliente.css') }}">
+
+    <title>Document</title>
+
+
+    <style>
+        body {
+            padding-top: 56px;
+            /* Ajusta el espacio superior para la barra de navegación */
+        }
+
+        .container {
+            margin-top: 20px;
+            /* Espacio entre la barra de navegación y el contenido */
+        }
+
+        .card {
+            margin-bottom: 20px;
+            /* Espacio entre las tarjetas */
+        }
+
+        #search-input {
+            margin-right: 10px;
+            /* Espacio entre el campo de búsqueda y el botón */
+        }
+        .custom-btn a {
+            color: #fff; /* Color del texto */
+            text-decoration: none;
+            transition: background-color 0.3s;
+          }
+      
+          .custom-btn button {
+            background-color: #080808; /* Color de fondo por defecto */
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+          }
+      
+          .custom-btn button:hover {
+            background-color: #d2e9dd; /* Cambio de color al pasar el cursor */
+          }
+
+        @media (max-width: 768px) {
+            /* Estilos para pantallas más pequeñas */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div style="display: flex;">
+                <div>
+                    <img src="{{ url_for('static', filename='/imagenes/suculentas.webp') }}" alt="Mi imagen">
+                </div>
+                <div class="px-3 py-2 bg-light text-dark border-bottom">
+                    <div class="container">
+                        <div
+                            class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                            <a href="/"
+                                class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                                    <use xlink:href="" />
+                                </svg>
+                            </a>
+
+                            <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                                <li>
+                                    <a href="{{ url_for('carritos.listar') }}" class="nav-link text-secondary">
+                                        <i class="bi bi-cart4" style="font-size: 30px;"></i>
+                                        <a href="{{ url_for('carritos.listar')}}">{{t}}<i class="bi bi-card-checkl"
+                                                style="font-size: 28px;"></i></a>
+                                    </a>
+                                </li>
+
+                                <div class="input-group mb-3">
+                                    <input type="text" id="search-input" class="form-control"
+                                        placeholder="Buscar producto...">
+                                    <div class="input-group-append">
+                                        <button onclick="buscarProducto()" class="btn btn-danger">Buscar</button>
+                                    </div>
+                                    <li>
+                                        <a class="nav-link" href="{{ url_for('producto.vista') }}">Ver Productos</a>
+                                    </li>
+                                </div>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+                    <div class="custom-btn">
+                        <button type="button"><a class="nav-link" href="/producto"> Regresar Pagina principal</a></button>
+                        
+                    </div>
+                </div>
+               
+            </div>
+
+            
+        </header>
+        <div class="row">
+            {% for producto in data %}
+            <div class="col-md-3 mb-3">
+                <div class="card" style="width: 100%;">
+                    <img src="{{ url_for('static', filename='imagenes/' ~ producto.imagen) }}" class="card-img-top"
+                        alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ producto.nombreProducto }}</h5>
+                        <p class="card-text">{{ producto.precioProductoventa }}</p>
+                        <form action="{{ url_for('carritos.agregar_al_carrito', id = producto.idProducto) }}"
+                            method="post">
+                            <div class="input-group">
+                                <input type="number" name="cantidad" value="1" min="1" class="form-control">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-success">Agregar al carrito</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function buscarProducto() {
+            var input = document.getElementById("search-input").value.toLowerCase();
+            var cards = document.getElementsByClassName("card");
+
+            for (var i = 0; i < cards.length; i++) {
+                var card = cards[i];
+                var title = card.getElementsByClassName("card-title")[0];
+                var titleText = title.textContent.toLowerCase();
+
+                if (titleText.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Agregar Detalle Venta</title>
+</head>
+<body>
+    <h1>Agregar Detalle Venta</h1>
+    <form action="{{ url_for('detalleVenta.add') }}" method="post">
+        <label for="cantidad">Cantidad</label>
+        <input type="text" id="cantidad" name="cantidad" required>
+        <label for="subTotal">SubTotal</label>
+        <input type="int" id="subTotal" name="cantidad" required>
+
+        <label for="producto"> ID Producto:</label>
+
+        <select id="idProducto" name="idProducto">
+            {% for producto in datas %}
+                <option value="{{producto.idProducto}}">{{producto.nombreProducto}}</option>
+            {% endfor %}
+        </select>
+
+        <label for="venta"> ID Venta:</label>
+
+        <select id="idVenta" name="idVenta">
+            {% for venta in data %}
+                <option value="{{ venta.idVenta}}">{{venta.descripcionVenta}}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Agregar Detalle Venta</button>
+    </form>
+</body>
+</html>
