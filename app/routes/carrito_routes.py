@@ -75,7 +75,7 @@ def realizar_compra():
     db.session.commit()
     detalle = DetalleVentas.query.filter_by(idVenta=new_venta.idVenta).all()
 
-    return render_template('Carrito/realizar_Compra.html', detalles=detalle,new_venta=new_venta)
+    return render_template('carrito/realizar_Compra.html', detalles=detalle,new_venta=new_venta)
 
 
     #return redirect(url_for('venta.add'))
