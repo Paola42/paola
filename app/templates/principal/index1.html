@@ -120,7 +120,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ producto.nombreProducto }}</h5>
                         <p class="card-text">{{ producto.precioProductoventa }}</p>
-                        <form action="{{ url_for('carritos.agregar_al_carrito', id = producto.idProducto) }}"
+                        <form action="{{ url_for('carritos.agregar_al_carrito', id=producto.idProducto) }}"
                             method="post">
                             <div class="input-group">
                                 <input type="number" name="cantidad" value="1" min="1" class="form-control">
